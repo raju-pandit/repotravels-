@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Hariom Travels — by Jagdish pandit</title>
+<link rel="icon" href="" />
+<style>
+:root{
+  --blue-1:#0b76ff;
+  --blue-2:#2a9df5;
+  --white:#ffffff;
+  --glass: rgba(255,255,255,0.07);
+  --muted: #cfe8ff;
+  --max-width:1100px;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color:#03314b;
+  background: linear-gradient(180deg,#eaf6ff 0%, #fff 100%);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.4;
+}
+
+/* container */
+.wrap{max-width:var(--max-width); margin:24px auto; padding:20px;}
+
+/* NAV */
+header{
+  position:sticky; top:12px; z-index:40;
+  background: linear-gradient(90deg,var(--white),#f6fbff);
+  padding:10px;
+  border-radius:18px;
+  box-shadow:0 6px 20px rgba(10,30,60,0.08);
+  display:flex; align-items:center; gap:16px;
+  flex-wrap: wrap;
+}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{
+  width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,var(--blue-1),var(--blue-2));
+  display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:18px;
+  box-shadow:0 6px 18px rgba(10,40,80,0.12);
+}
+.brand h1{margin:0;font-size:18px}
+nav{margin-left:auto; display:flex; flex-wrap: wrap;}
+nav a{margin:0 10px;text-decoration:none;color:var(--blue-1);font-weight:600;}
+.cta{background:var(--blue-1);color:white;padding:8px 12px;border-radius:10px;text-decoration:none;margin-left:12px;box-shadow:0 6px 12px rgba(10,40,90,0.12)}
+.hamburger{display:none}
+
+/* HERO */
+.hero{
+  margin-top:18px;
+  background: linear-gradient(90deg, rgba(11,118,255,0.95), rgba(42,157,244,0.95));
+  color:white; padding:28px; border-radius:16px; display:grid; grid-template-columns: 1fr 1fr; gap:24px; align-items:center;
+}
+.hero .tag{opacity:0.95}
+.hero h2{margin:6px 0 8px;font-size:28px}
+.hero p{margin:0 0 12px}
+.hero .btns{display:flex;gap:10px; flex-wrap: wrap}
+.btn{background:white;color:var(--blue-1);padding:10px 14px;border-radius:10px;font-weight:700;text-decoration:none}
+.card-right{background:rgba(255,255,255,0.12); padding:18px;border-radius:12px; text-align:center}
+.phone{display:flex;align-items:center;gap:8px;justify-content:center;margin:8px 0}
+.phone strong{display:block;font-size:14px}
+.qr{width:120px;height:120px;border-radius:10px; background:white; display:inline-flex; align-items:center; justify-content:center; overflow:hidden;}
+
+/* sections */
+section{margin:22px 0;padding:18px;background:var(--white);border-radius:14px;box-shadow:0 6px 20px rgba(10,30,60,0.04)}
+.grid{display:grid;gap:18px}
+.two{grid-template-columns: 1fr 400px}
+.about p{margin:8px 0 0;color:#234a61}
+.services ul{padding-left:18px;margin:6px 0 0}
+
+/* gallery specifics */
+.upload-zone{
+  border:2px dashed var(--muted);
+  border-radius:12px; padding:18px; text-align:center; background:linear-gradient(180deg, rgba(255,255,255,0.4), rgba(255,255,255,0.18));
+}
+.upload-zone.dragover{border-color:var(--blue-1); background:rgba(11,118,255,0.06)}
+.upload-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:center;margin-top:12px}
+.file-btn{padding:10px 14px;border-radius:10px;background:var(--blue-1);color:white;font-weight:700;border:none;cursor:pointer}
+.gallery-grid{display:grid;grid-template-columns: repeat(auto-fit, minmax(120px,1fr));gap:12px;margin-top:14px}
+.thumb{position:relative;border-radius:10px;overflow:hidden;background:#f7fbff;box-shadow:0 6px 18px rgba(12,45,80,0.06)}
+.thumb img{width:100%;height:150px;object-fit:cover;display:block}
+.thumb .meta{position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,0.45);color:white;padding:6px 8px;border-radius:8px;font-size:12px}
+.thumb .actions{position:absolute;right:8px;top:8px;display:flex;gap:6px}
+.icon-btn{background:rgba(255,255,255,0.9);border-radius:8px;padding:6px;cursor:pointer;font-weight:700;border:none}
+.small{font-size:13px;color:#234a61}
+
+/* modal viewer */
+.modal{position:fixed;inset:0;background:rgba(2,8,23,0.6);display:none;align-items:center;justify-content:center;z-index:80}
+.modal.open{display:flex}
+.modal .box{max-width:92%;max-height:92%;background:white;border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.modal img{max-width:100%;max-height:78vh;object-fit:contain;background:black}
+.modal .meta{padding:12px;display:flex;justify-content:space-between;align-items:center}
+
+/* footer */
+footer{opacity:0.9;padding:16px;text-align:center;font-size:14px;color:#234a61;background:transparent;border-radius:8px;margin-top:12px}
+
+/* responsive */
+@media (max-width:880px){
+  .hero{grid-template-columns:1fr; text-align:center}
+  .card-right{margin-top:20px}
+  nav{display:none; width:100%}
+  .two{grid-template-columns:1fr}
+  nav a{display:block; margin:8px 0}
+  .btns{justify-content:center}
+}
+@media (max-width:480px){
+  .wrap{padding:12px; margin:12px auto;}
+  .hero h2{font-size:24px;}
+  .hero p{font-size:14px;}
+  .card-right{padding:14px;}
+  .qr{width:100px;height:100px;}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="logo" id="logoText">HT</div>
+      <div>
+        <h1>Hariom Travels</h1>
+        <div class="small">by Jagdish Pandit</div>
+      </div>
+    </div>
+
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+      <a class="cta" href="#gallery">Upload Photo</a>
+    </nav>
+    <button class="hamburger" aria-label="menu" onclick="toggleMenu()">☰</button>
+  </header>
+
+  <!-- HERO -->
+  <section id="home" class="hero" aria-label="Home">
+    <div>
+      <div class="tag">सफ़र का भरोसा — भरोसेमंद, सुरक्षित, सस्ता</div>
+      <h2>Hariom Travels</h2>
+      <p>Book your ride, travel safe, and capture memories. Local pickups, long-distance tours, and customized packages.</p>
+      <div class="btns">
+        <a class="btn" href="#services">Our Services</a>
+        <a class="btn" href="#contact" style="background:transparent;color:white;border:1px solid rgba(255,255,255,0.18)">Contact</a>
+      </div>
+      <div style="margin-top:12px" class="small">Phone: <strong>+91 8709656218</strong> • <strong>+91 9693926774</strong></div>
+    </div>
+
+    <div class="card-right">
+      <div style="font-weight:800;font-size:18px">Contact / Pay</div>
+      <div class="phone"><div style="font-weight:800">📞</div><div><div class="small">Phone</div><strong>+91 8709656218</strong></div></div>
+      <div class="phone"><div style="font-weight:800">📞</div><div><div class="small">Phone</div><strong>+91 9693926774</strong></div></div>
+      <div class="small">Location: VILLAGE-KHUTTA, POST-BANDKHARO, 825322</div>
+      <div style="margin-top:12px">
+        <div class="qr" id="qrPreview">QR</div>
+        <div style="margin-top:8px" class="small">Google Pay / UPI</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN GRID -->
+  <section class="grid two">
+
+    <!-- left column -->
+    <div>
+      <!-- ABOUT -->
+      <section id="about" class="about">
+        <h3>About</h3>
+        <p>Hariom Travels is a family-run travel service managed by Jagdish Pandit. We provide reliable taxi services, local sightseeing, and long-distance booking. Safe drivers, transparent pricing, and flexible scheduling.</p>
+      </section>
+
+      <!-- SERVICES -->
+      <section id="services" class="services">
+        <h3>Services</h3>
+        <ul>
+          <li>Local & Intercity Taxi</li>
+          <li>Tour Packages & Sightseeing</li>
+          <li>Event Transfers & Group Bookings</li>
+          <li>Customized Routes & Long Trips</li>
+        </ul>
+      </section>
+
+      <!-- GALLERY (upload) -->
+      <section id="gallery" class="gallery">
+        <h3>Gallery — Upload Photos</h3>
+        <div class="upload-zone" id="dropzone">
+          <div style="font-weight:700">Drag & drop photos here</div>
+          <div class="small">or</div>
+          <div class="upload-row">
+            <input id="fileInput" type="file" accept="image/*" multiple style="display:none" />
+            <button class="file-btn" id="openBtn">Choose Photos</button>
+            <button class="file-btn" id="clearAll" style="background:#ff4d6d">Clear gallery</button>
+          </div>
+          <div class="small" style="margin-top:8px">Photos are stored in your browser (private to this computer).</div>
+        </div>
+
+        <div id="galleryGrid" class="gallery-grid" aria-live="polite"></div>
+      </section>
+
+    </div>
+
+    <!-- right column -->
+    <aside>
+      <section id="contact" class="contact">
+        <h3>Contact</h3>
+        <div style="display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap">
+          <div style="flex:0 0 80px">
+            <div style="width:72px;height:72px;border-radius:12px;background:#e9f6ff;display:flex;align-items:center;justify-content:center;font-weight:800">JP</div>
+          </div>
+          <div>
+            <div class="small">Owner</div>
+            <div style="font-weight:800">Jagdish Pandit</div>
+            <div style="margin-top:8px">
+              <div class="small">Phone</div>
+              <div><a href="tel:+918709656218">+91 8709656218</a></div>
+              <div><a href="tel:+919693926774">+91 9693926774</a></div>
+            </div>
+            <div style="margin-top:10px">
+              <div class="small">Address</div>
+              <div class="small">Village-Khutta, Post-Bandkharo, 825322</div>
+            </div>
+          </div>
+        </div>
+        <hr style="margin:12px 0;border:none;border-top:1px solid #f0f7ff" />
+        <h4>Upload QR / Logo (optional)</h4>
+        <input id="logoFile" type="file" accept="image/*" />
+        <div class="small" style="margin-top:8px">Upload a small image to show as logo or QR in the header/card.</div>
+      </section>
+
+      <section style="margin-top:14px">
+        <h3>Map</h3>
+        <div style="width:100%;height:240px;border-radius:12px;overflow:hidden;background:#eef9ff;display:flex;align-items:center;justify-content:center">
+          <div class="small">Google Maps embed (replace iframe with your map)</div>
+        </div>
+      </section>
+    </aside>
+
+  </section>
+
+  <footer>
+    Made with ❤️ by Hariom Travels — <span id="footYear"></span>
+  </footer>
+</div>
+
+<!-- modal viewer -->
+<div id="modal" class="modal" role="dialog" aria-modal="true">
+  <div class="box">
+    <img id="modalImg" src="" alt="photo preview" />
+    <div class="meta">
+      <div id="modalMeta" class="small"></div>
+      <div>
+        <button id="downloadBtn" class="icon-btn">⬇</button>
+        <button id="delBtn" class="icon-btn" style="background:#ffefef">🗑</button>
+        <button id="closeBtn" class="icon-btn">✕</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const LS_KEY = 'hariom_gallery_v1';
+const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('fileInput');
+const openBtn = document.getElementById('openBtn');
+const galleryGrid = document.getElementById('galleryGrid');
+const clearAll = document.getElementById('clearAll');
+const logoFile = document.getElementById('logoFile');
+const qrPreview = document.getElementById('qrPreview');
+const modal = document.getElementById('modal');
+const modalImg = document.getElementById('modalImg');
+const modalMeta = document.getElementById('modalMeta');
+const closeBtn = document.getElementById('closeBtn');
+const delBtn = document.getElementById('delBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+
+let gallery = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
+let activeIndex = null;
+
+function saveGallery(){ localStorage.setItem(LS_KEY, JSON.stringify(gallery)); }
+function bytesToKb(b){ return Math.round(b/1024) + ' KB'; }
+
+function renderGallery(){
+  galleryGrid.innerHTML = '';
+  if(gallery.length === 0){
+    galleryGrid.innerHTML = '<div class="small" style="padding:12px;color:#345">No photos yet — upload to showcase here.</div>';
+    return;
+  }
+  gallery.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.className = 'thumb';
+    div.innerHTML = `
+      <img src="${item.data}" alt="${item.name}" loading="lazy" />
+      <div class="actions">
+        <button class="icon-btn" data-idx="${idx}" title="view">👁</button>
+      </div>
+      <div class="meta">${item.name}</div>
+    `;
+    galleryGrid.appendChild(div);
+    div.querySelector('.icon-btn').addEventListener('click', ()=> openModal(idx));
+  });
+}
+
+function openModal(idx){
+  activeIndex = idx;
+  const img = gallery[idx];
+  modalImg.src = img.data;
+  modalMeta.textContent = `${img.name} • ${img.size}`;
+  modal.classList.add('open');
+}
+function closeModal(){ modal.classList.remove('open'); activeIndex = null; }
+function deleteActive(){
+  if(activeIndex === null) return;
+  if(!confirm('Remove this photo?')) return;
+  gallery.splice(activeIndex, 1);
+  saveGallery();
+  renderGallery();
+  closeModal();
+}
+function downloadActive(){
+  if(activeIndex === null) return;
+  const a = document.createElement('a');
+  a.href = gallery[activeIndex].data;
+  a.download = gallery[activeIndex].name || 'photo.png';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+function handleFiles(files){
+  const arr = Array.from(files).slice(0, 20);
+  arr.forEach(file => {
+    if(!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataURL = reader.result;
+      gallery.unshift({
+        name: file.name,
+        size: bytesToKb(file.size),
+        data: dataURL,
+        ts: Date.now()
+      });
+      if(gallery.length > 60) gallery = gallery.slice(0,60);
+      saveGallery();
+      renderGallery
+    '}'                        
